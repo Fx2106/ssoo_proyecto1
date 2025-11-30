@@ -1,0 +1,14 @@
+Integrantes: Jordi Machon, Qunwang Wang
+Asignatura: SS_OO
+Proyecto: Simulación memoria cache
+
+Compilación:
+gcc MEMsym.c -o MEMsym
+
+Ejecución:
+./MEMsym > logcache.txt
+
+Archivos incluidos:
+-MEMsym.c
+-logcache.c
+-REDME.txt
