@@ -20,6 +20,8 @@ T_CACHE_LINE CACHE[NUM_FILAS];
 unsigned char Simul_RAM[SIMUL_RAM_SIZE];      /*Memoria Principal*/
 int globaltime = 0;                   
 int numfallos = 0;                      
+char texto[MAX_TEXTO];
+int texto_len=0;
 
 /*PROTOTIPOS*/
 void LimpiarCACHE(T_CACHE_LINE tbl[NUM_FILAS]);
@@ -78,7 +80,7 @@ void TratarFallo(T_CACHE_LINE *tbl, unsigned char *MRAM, int ETQ, int linea, int
 	memcpy(tbl[linea].Data, &MRAM[addr_inicio],TAM_LINEA);
 	tbl[linea].ETQ = ETQ;
 	
-	printf("T: %d, Cargando bloque %02X en linea %02X\n", globaltime, bloque, linea),
+	printf("T: %d, Fallo de CACHE, Cargando bloque %02X en linea %02X\n", globaltime, bloque, linea);
 }
 
 int main(void) {
@@ -101,7 +103,7 @@ int main(void) {
 	}
 
 	/*Mostrar cache inicial*/
-	VolvarCACHE(CACHE);
+	VolcarCACHE(CACHE);
 
 	FILE *f=fopen("accesos_memoria.txt", "r");
 	if(!f){
@@ -118,25 +120,43 @@ int main(void) {
 
 		int ETQ, palabra, linea, bloque;
 
-		ParsearDireccion(addr, &ETQ, &palabra. &linea, &bloque);
+		ParsearDireccion(addr, &ETQ, &palabra, &linea, &bloque);
 
 		if (CACHE[linea].ETQ == ETQ){
 			globaltime +=1;
-			printf("T: %d, ACIERTO en addr %03X (linea=%d palabra=%d)\n", globaltime, addr, linea, palabra);
+			unsigned char dato = CACHE[linea].Data[palabra];
+			printf("T: %d, ACIERTO de cache, ADDR %04X Label %X linea %02X palabra %02X DATO %02X\n",
+			 globaltime, addr, ETQ, linea, dato, palabra);
+			if(texto_len < MAX_TEXTO){
+				texto[texto_len++]=dato;
+			}
 		}else{
-			printf("T: %d, FALLO en addr %03X\n", globaltime, addr);
 			TratarFallo(CACHE, Simul_RAM, ETQ, linea, bloque);
+			unsigned char dato = CACHE[linea].Data[palabra];
+			if(texto_len < MAX_TEXTO){
+				texto[texto_len++]=dato;
+			}
 		}
 	}
+	
+	sleep(1);
 	
 	fclose(f);
 
 	/*Volcar cache final*/
 	VolcarCACHE(CACHE);
 
+	/* Guardar la caché en binario */
+	FILE *cache_out = fopen("CONTENTS_CACHE.bin", "wb"); 
+	for(int i = 0; i < NUM_FILAS; i++)
+        fwrite(CACHE[i].Data, 1, TAM_LINEA, cache_out);
+	fclose(cache_out);
+
 	printf("Numero total de fallos: %d\n", numfallos);
 	printf("Tiempo total: %d ciclos\n", globaltime);
-
+	
+	texto[texto_len]='\0';
+	printf("Texto leido: %s\n", texto);
 	return 0;
 } 
 

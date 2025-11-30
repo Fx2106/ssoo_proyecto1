@@ -1,0 +1,41 @@
+
+------ CONTENIDO CACHE ------
+Linea 0  ETQ FF  | 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 
+Linea 1  ETQ FF  | 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 
+Linea 2  ETQ FF  | 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 
+Linea 3  ETQ FF  | 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 
+Linea 4  ETQ FF  | 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 
+Linea 5  ETQ FF  | 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 
+Linea 6  ETQ FF  | 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 
+Linea 7  ETQ FF  | 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 
+-----------------------------
+
+T: 20, Fallo de CACHE, Cargando bloque 22 en linea 02
+T: 40, Fallo de CACHE, Cargando bloque 43 en linea 03
+T: 41, ACIERTO de cache, ADDR 0430 Label 8 linea 03 palabra 78 DATO 00
+T: 61, Fallo de CACHE, Cargando bloque 59 en linea 01
+T: 62, ACIERTO de cache, ADDR 0595 Label B linea 01 palabra 62 DATO 05
+T: 63, ACIERTO de cache, ADDR 0596 Label B linea 01 palabra 75 DATO 06
+T: 83, Fallo de CACHE, Cargando bloque C7 en linea 07
+T: 103, Fallo de CACHE, Cargando bloque B0 en linea 00
+T: 123, Fallo de CACHE, Cargando bloque 63 en linea 03
+T: 143, Fallo de CACHE, Cargando bloque FC en linea 04
+T: 163, Fallo de CACHE, Cargando bloque 81 en linea 01
+T: 164, ACIERTO de cache, ADDR 0FC0 Label 1F linea 04 palabra 66 DATO 00
+T: 184, Fallo de CACHE, Cargando bloque 06 en linea 06
+T: 185, ACIERTO de cache, ADDR 0FC6 Label 1F linea 04 palabra 6E DATO 06
+
+------ CONTENIDO CACHE ------
+Linea 0  ETQ 16  | 65 64 69 76 20 75 74 61 6E 65 73 20 6E 69 20 6F 
+Linea 1  ETQ 10  | 43 20 74 65 20 2E 6C 70 20 6D 75 6E 75 62 69 72 
+Linea 2  ETQ 04  | 73 6F 6E 20 6D 65 75 71 20 2C 73 69 72 65 70 65 
+Linea 3  ETQ 0C  | 20 65 75 71 65 6E 20 6D 75 69 6C 69 73 6E 6F 63 
+Linea 4  ETQ 1F  | 65 63 20 73 69 6D 72 61 20 6E 69 20 65 72 6F 66 
+Linea 5  ETQ FF  | 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 
+Linea 6  ETQ 00  | 64 61 20 6D 65 75 71 20 3F 74 65 64 75 6C 65 20 
+Linea 7  ETQ 18  | 6D 61 74 20 6F 6D 65 6E 20 6D 61 69 20 6D 75 63 
+-----------------------------
+
+Numero total de fallos: 9
+Tiempo total: 185 ciclos
+Texto leido: osx bu tn efln
