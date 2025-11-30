@@ -20,8 +20,6 @@ T_CACHE_LINE CACHE[NUM_FILAS];
 unsigned char Simul_RAM[SIMUL_RAM_SIZE];      /*Memoria Principal*/
 int globaltime = 0;                   
 int numfallos = 0;                      
-char texto[MAX_TEXTO+1];                  
-int texto_len = 0;                  
 
 /*PROTOTIPOS*/
 void LimpiarCACHE(T_CACHE_LINE tbl[NUM_FILAS]);
@@ -43,7 +41,7 @@ void LimpiarCACHE(T_CACHE_LINE tbl[NUM_FILAS]) {
 
 /* muestra por pantalla el contenido actual de la caché en el formato requerido. */
 void VolcarCACHE(T_CACHE_LINE *tbl) {
-    printf("CACHE\n");
+    printf("\n------ CONTENIDO CACHE ------\n");
     for (int i = 0; i < NUM_FILAS; ++i) {
         /* muestra linea y etiqueta */
         printf("Linea %d  ETQ %02X  | ", i, tbl[i].ETQ);
@@ -53,7 +51,7 @@ void VolcarCACHE(T_CACHE_LINE *tbl) {
         }
         printf("\n");
     }
-    printf("\n");
+    printf("-----------------------------\n\n");
 }
 
 void ParsearDireccion(unsigned int addr, int *ETQ, int *palabra, int *linea, int *bloque) {
@@ -72,28 +70,73 @@ void ParsearDireccion(unsigned int addr, int *ETQ, int *palabra, int *linea, int
 
 void TratarFallo(T_CACHE_LINE *tbl, unsigned char *MRAM, int ETQ, int linea, int bloque) {
     
-    unsigned int addr_bloque_inicio_RAM;
-    
-    /* contador de fallos */
-    numfallos++;
-    /* actualiza el tiempo del tiempo global */
-    globaltime += 20;
-    /* inicio bloque RAM */
-    addr_bloque_inicio_RAM = bloque * TAM_LINEA;
-    /* copia el origen destino y tamaño*/
-    memcpy(tbl[linea].Data, &MRAM[addr_bloque_inicio_RAM], TAM_LINEA);
-    /* actualiza etiqueta */
-    tbl[linea].ETQ = ETQ;
-    /* muestra mensaje de carga */
-    printf("T: %d, Cargando el bloque %02X en la linea %02X\n", globaltime, bloque, linea);
+	unsigned int addr_inicio = bloque * TAM_LINEA;
+	
+	numfallos++;
+	globaltime+=20;
+	
+	memcpy(tbl[linea].Data, &MRAM[addr_inicio],TAM_LINEA);
+	tbl[linea].ETQ = ETQ;
+	
+	printf("T: %d, Cargando bloque %02X en linea %02X\n", globaltime, bloque, linea),
 }
 
 int main(void) {
-    /* cache inicial*/
-    LimpiarCACHE(CACHE);
+	/* Limpiamos cache */
+	LimpiarCACHE(CACHE);
+	
+	/*Cargamos RAM*/
+	FILE *ram=fopen("CONTENTS_RAM.bin", "rb");
+	if (!ram){
+		printf("Error: no se pudo abrir CONTENTS_RAM.bin\n");
+	return 1;
+	}
 
-     /* eseña cache incial */
-    VolcarCACHE(CACHE);
-    
-    return 0;
-}
+	size_t leidos = fread(Simul_RAM, 1, SIMUL_RAM_SIZE, ram);
+	fclose(ram);
+
+	if (leidos != SIMUL_RAM_SIZE){
+		printf("Error: tamaño incorrecto de CONTENTS_RAM.bin (%zu bytes)\n", leidos);
+		return 1;
+	}
+
+	/*Mostrar cache inicial*/
+	VolvarCACHE(CACHE);
+
+	FILE *f=fopen("accesos_memoria.txt", "r");
+	if(!f){
+		printf("Error: no se pudo abrir accesos_memoria.txt\n");
+		return 1;
+	}
+
+	char linea_hex[20];
+	unsigned int addr;
+	
+	/*Leer cada acceso*/
+	while (fgets(linea_hex, sizeof(linea_hex),f)){
+		addr = (unsigned int) strtol(linea_hex, NULL, 16);
+
+		int ETQ, palabra, linea, bloque;
+
+		ParsearDireccion(addr, &ETQ, &palabra. &linea, &bloque);
+
+		if (CACHE[linea].ETQ == ETQ){
+			globaltime +=1;
+			printf("T: %d, ACIERTO en addr %03X (linea=%d palabra=%d)\n", globaltime, addr, linea, palabra);
+		}else{
+			printf("T: %d, FALLO en addr %03X\n", globaltime, addr);
+			TratarFallo(CACHE, Simul_RAM, ETQ, linea, bloque);
+		}
+	}
+	
+	fclose(f);
+
+	/*Volcar cache final*/
+	VolcarCACHE(CACHE);
+
+	printf("Numero total de fallos: %d\n", numfallos);
+	printf("Tiempo total: %d ciclos\n", globaltime);
+
+	return 0;
+} 
+
