@@ -20,7 +20,7 @@ T_CACHE_LINE CACHE[NUM_FILAS];
 unsigned char Simul_RAM[SIMUL_RAM_SIZE];      /*Memoria Principal*/
 int globaltime = 0;                   
 int numfallos = 0;                      
-char texto[MAX_TEXTO];                  
+char texto[MAX_TEXTO+1];                  
 int texto_len = 0;                  
 
 /*PROTOTIPOS*/
