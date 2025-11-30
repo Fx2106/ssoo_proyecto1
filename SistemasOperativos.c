@@ -56,6 +56,23 @@ void VolcarCACHE(T_CACHE_LINE *tbl) {
     printf("\n");
 }
 
+void ParsearDireccion(unsigned int addr, int *ETQ, int *palabra, int *linea, int *bloque) {
+    /*usar solo 12 bits*/
+    addr &= 0xFFF; 
+    /* extraer la palabra */
+    *palabra = addr & 0xF;       /* utilizamos mascara 0xF*/
+    /* extraer la linea */
+    *linea   = (addr >> 4) & 0x7;       /* desplazar 4 bits para aplicar la mascara 0x7  */
+    /* extraer la etiqueta */
+    *ETQ     = (addr >> 7) & 0x1F;       /* desplazar 7 bits para aplicar la mascara 0x1F */
+    /* 4calcular numero de bloque */
+    *bloque  = addr >> 4;                  
+}
+
+
+void TratarFallo(T_CACHE_LINE *tbl, unsigned char *MRAM, int ETQ, int linea, int bloque) {
+    
+}
 
 int main(void) {
     /* cache inicial*/
