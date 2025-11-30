@@ -12,18 +12,18 @@ Linea 7  ETQ FF  | 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23
 
 T: 20, Fallo de CACHE, Cargando bloque 22 en linea 02
 T: 40, Fallo de CACHE, Cargando bloque 43 en linea 03
-T: 41, ACIERTO de cache, ADDR 0430 Label 8 linea 03 palabra 78 DATO 00
+T: 41, ACIERTO de cache, ADDR 0430 Label 8 linea 03 palabra 00 DATO 78
 T: 61, Fallo de CACHE, Cargando bloque 59 en linea 01
-T: 62, ACIERTO de cache, ADDR 0595 Label B linea 01 palabra 62 DATO 05
-T: 63, ACIERTO de cache, ADDR 0596 Label B linea 01 palabra 75 DATO 06
+T: 62, ACIERTO de cache, ADDR 0595 Label B linea 01 palabra 05 DATO 62
+T: 63, ACIERTO de cache, ADDR 0596 Label B linea 01 palabra 06 DATO 75
 T: 83, Fallo de CACHE, Cargando bloque C7 en linea 07
 T: 103, Fallo de CACHE, Cargando bloque B0 en linea 00
 T: 123, Fallo de CACHE, Cargando bloque 63 en linea 03
 T: 143, Fallo de CACHE, Cargando bloque FC en linea 04
 T: 163, Fallo de CACHE, Cargando bloque 81 en linea 01
-T: 164, ACIERTO de cache, ADDR 0FC0 Label 1F linea 04 palabra 66 DATO 00
+T: 164, ACIERTO de cache, ADDR 0FC0 Label 1F linea 04 palabra 00 DATO 66
 T: 184, Fallo de CACHE, Cargando bloque 06 en linea 06
-T: 185, ACIERTO de cache, ADDR 0FC6 Label 1F linea 04 palabra 6E DATO 06
+T: 185, ACIERTO de cache, ADDR 0FC6 Label 1F linea 04 palabra 06 DATO 6E
 
 ------ CONTENIDO CACHE ------
 Linea 0  ETQ 16  | 65 64 69 76 20 75 74 61 6E 65 73 20 6E 69 20 6F 

@@ -126,7 +126,7 @@ int main(void) {
 			globaltime +=1;
 			unsigned char dato = CACHE[linea].Data[palabra];
 			printf("T: %d, ACIERTO de cache, ADDR %04X Label %X linea %02X palabra %02X DATO %02X\n",
-			 globaltime, addr, ETQ, linea, dato, palabra);
+			 globaltime, addr, ETQ, linea, palabra, dato);
 			if(texto_len < MAX_TEXTO){
 				texto[texto_len++]=dato;
 			}
@@ -137,9 +137,10 @@ int main(void) {
 				texto[texto_len++]=dato;
 			}
 		}
-	}
 	
-	sleep(1);
+		sleep(1);
+
+	}
 	
 	fclose(f);
 
