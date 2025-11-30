@@ -20,6 +20,7 @@ T_CACHE_LINE CACHE[NUM_FILAS];
 unsigned char Simul_RAM[SIMUL_RAM_SIZE];      /*Memoria Principal*/
 int globaltime = 0;                   
 int numfallos = 0;                      
+int num_accesos = 0;
 char texto[MAX_TEXTO];
 int texto_len=0;
 
@@ -91,7 +92,7 @@ int main(void) {
 	FILE *ram=fopen("CONTENTS_RAM.bin", "rb");
 	if (!ram){
 		printf("Error: no se pudo abrir CONTENTS_RAM.bin\n");
-	return 1;
+		return -1;
 	}
 
 	size_t leidos = fread(Simul_RAM, 1, SIMUL_RAM_SIZE, ram);
@@ -99,7 +100,7 @@ int main(void) {
 
 	if (leidos != SIMUL_RAM_SIZE){
 		printf("Error: tamaño incorrecto de CONTENTS_RAM.bin (%zu bytes)\n", leidos);
-		return 1;
+		return -1;
 	}
 
 	/*Mostrar cache inicial*/
@@ -108,7 +109,7 @@ int main(void) {
 	FILE *f=fopen("accesos_memoria.txt", "r");
 	if(!f){
 		printf("Error: no se pudo abrir accesos_memoria.txt\n");
-		return 1;
+		return -1;
 	}
 
 	char linea_hex[20];
@@ -117,6 +118,7 @@ int main(void) {
 	/*Leer cada acceso*/
 	while (fgets(linea_hex, sizeof(linea_hex),f)){
 		addr = (unsigned int) strtol(linea_hex, NULL, 16);
+		num_accesos++;
 
 		int ETQ, palabra, linea, bloque;
 
@@ -136,6 +138,8 @@ int main(void) {
 			if(texto_len < MAX_TEXTO){
 				texto[texto_len++]=dato;
 			}
+			printf("T: %d, ACIERTO de CACHE (después de fallo), ADDR %04X Label %X linea %02X palabra %02X DATO %02X\n",
+                  	 globaltime, addr, ETQ, linea, palabra, dato); 
 		}
 	
 		sleep(1);
@@ -153,8 +157,8 @@ int main(void) {
         fwrite(CACHE[i].Data, 1, TAM_LINEA, cache_out);
 	fclose(cache_out);
 
-	printf("Numero total de fallos: %d\n", numfallos);
-	printf("Tiempo total: %d ciclos\n", globaltime);
+	printf("Accesos totales: %d; Fallos: %d; Tiempo medio: %.2f\n", 
+        num_accesos, numfallos, (float)globaltime / num_accesos);
 	
 	texto[texto_len]='\0';
 	printf("Texto leido: %s\n", texto);

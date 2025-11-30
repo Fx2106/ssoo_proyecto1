@@ -11,18 +11,27 @@ Linea 7  ETQ FF  | 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23
 -----------------------------
 
 T: 20, Fallo de CACHE, Cargando bloque 22 en linea 02
+T: 20, ACIERTO de CACHE (después de fallo), ADDR 022E Label 4 linea 02 palabra 0E DATO 6F
 T: 40, Fallo de CACHE, Cargando bloque 43 en linea 03
+T: 40, ACIERTO de CACHE (después de fallo), ADDR 0434 Label 8 linea 03 palabra 04 DATO 73
 T: 41, ACIERTO de cache, ADDR 0430 Label 8 linea 03 palabra 00 DATO 78
 T: 61, Fallo de CACHE, Cargando bloque 59 en linea 01
+T: 61, ACIERTO de CACHE (después de fallo), ADDR 0598 Label B linea 01 palabra 08 DATO 20
 T: 62, ACIERTO de cache, ADDR 0595 Label B linea 01 palabra 05 DATO 62
 T: 63, ACIERTO de cache, ADDR 0596 Label B linea 01 palabra 06 DATO 75
 T: 83, Fallo de CACHE, Cargando bloque C7 en linea 07
+T: 83, ACIERTO de CACHE (después de fallo), ADDR 0C77 Label 18 linea 07 palabra 07 DATO 20
 T: 103, Fallo de CACHE, Cargando bloque B0 en linea 00
+T: 103, ACIERTO de CACHE (después de fallo), ADDR 0B09 Label 16 linea 00 palabra 09 DATO 74
 T: 123, Fallo de CACHE, Cargando bloque 63 en linea 03
+T: 123, ACIERTO de CACHE (después de fallo), ADDR 063A Label C linea 03 palabra 0A DATO 6E
 T: 143, Fallo de CACHE, Cargando bloque FC en linea 04
+T: 143, ACIERTO de CACHE (después de fallo), ADDR 0FC4 Label 1F linea 04 palabra 04 DATO 20
 T: 163, Fallo de CACHE, Cargando bloque 81 en linea 01
+T: 163, ACIERTO de CACHE (después de fallo), ADDR 081C Label 10 linea 01 palabra 0C DATO 65
 T: 164, ACIERTO de cache, ADDR 0FC0 Label 1F linea 04 palabra 00 DATO 66
 T: 184, Fallo de CACHE, Cargando bloque 06 en linea 06
+T: 184, ACIERTO de CACHE (después de fallo), ADDR 0062 Label 0 linea 06 palabra 02 DATO 6C
 T: 185, ACIERTO de cache, ADDR 0FC6 Label 1F linea 04 palabra 06 DATO 6E
 
 ------ CONTENIDO CACHE ------
@@ -36,6 +45,5 @@ Linea 6  ETQ 00  | 64 61 20 6D 65 75 71 20 3F 74 65 64 75 6C 65 20
 Linea 7  ETQ 18  | 6D 61 74 20 6F 6D 65 6E 20 6D 61 69 20 6D 75 63 
 -----------------------------
 
-Numero total de fallos: 9
-Tiempo total: 185 ciclos
+Accesos totales: 14; Fallos: 9; Tiempo medio: 13.21
 Texto leido: osx bu tn efln
