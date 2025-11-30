@@ -72,6 +72,20 @@ void ParsearDireccion(unsigned int addr, int *ETQ, int *palabra, int *linea, int
 
 void TratarFallo(T_CACHE_LINE *tbl, unsigned char *MRAM, int ETQ, int linea, int bloque) {
     
+    unsigned int addr_bloque_inicio_RAM;
+    
+    /* contador de fallos */
+    numfallos++;
+    /* actualiza el tiempo del tiempo global */
+    globaltime += 20;
+    /* inicio bloque RAM */
+    addr_bloque_inicio_RAM = bloque * TAM_LINEA;
+    /* copia el origen destino y tamaño*/
+    memcpy(tbl[linea].Data, &MRAM[addr_bloque_inicio_RAM], TAM_LINEA);
+    /* actualiza etiqueta */
+    tbl[linea].ETQ = ETQ;
+    /* muestra mensaje de carga */
+    printf("T: %d, Cargando el bloque %02X en la linea %02X\n", globaltime, bloque, linea);
 }
 
 int main(void) {
